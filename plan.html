@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>30-Day Learning Plan</title>
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; background:#f7f7f9; margin:0; padding:16px; color:#222; }
+    h1,h2 { margin:8px 0; }
+    .wrap { max-width:900px; margin:0 auto; background:#fff; border:1px solid #ddd; border-radius:12px; padding:16px; }
+    .buttons { display:grid; grid-template-columns: repeat(auto-fit, minmax(90px,1fr)); gap:8px; margin:12px 0 16px; }
+    .buttons button.is-active { outline:2px solid #4A90E2; background:#eef5ff; }
+    #plan-quiz-options button {
+      display:block; width:100%; text-align:left; margin:6px 0; padding:10px;
+      border:1px solid #ddd; border-radius:10px; background:#fff; cursor:pointer;
+      transition:background .2s, border-color .2s;
+    }
+    #plan-quiz-options button.correct { border-color:#2e7d32; background:#e8f5e9; }
+    #plan-quiz-options button.wrong   { border-color:#c62828; background:#ffebee; }
+    #quiz-feedback { margin-top:8px; font-weight:600; }
+    #quiz-feedback.ok { color:#2e7d32; }
+    #quiz-feedback.err { color:#c62828; }
+    #plan-video { margin-top:12px; }
+    .learn { margin-top:18px; padding-top:12px; border-top:1px solid #eee; }
+    .learn h3 { margin:6px 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Learning Plan</h1>
+    <h2 id="skill-title">Skill</h2>
+
+    <!-- Day controls -->
+    <div id="day-buttons" class="buttons"></div>
+
+    <!-- Daily content -->
+    <div id="plan-video"></div>
+    <div id="plan-quiz-question" style="margin-top:8px;font-weight:600;"></div>
+    <div id="plan-quiz-options"></div>
+    <div id="quiz-feedback"></div>
+
+    <!-- Reading -->
+    <div class="learn">
+      <h3>Reading</h3>
+      <div id="summary"></div>
+    </div>
+  </div>
+
+  <!-- Keys -->
+  <script type="module">
+import { YOUTUBE_QUERY, QUIZ, WIKI_TITLES, ARTICLE_QUERY } from './API.js';
+
+// Parse query params
+const params = new URLSearchParams(window.location.search);
+const skill = params.get("skill");
+const category = params.get("cat");
+
+const videoQuery = YOUTUBE_QUERY[skill] || skill;
+const quizData = QUIZ[skill] || [];
+const wikiFallback = WIKI_TITLES[skill] || skill;
+const articleQuery = ARTICLE_QUERY[skill] || skill;
+
+// Days setup
+const totalDays = category === "tech" ? 30 : 14;
+const contentContainer = document.getElementById("plan-content");
+
+// Fetch helper
+async function fetchYouTube(query) {
+  try {
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&key=YOUR_YOUTUBE_API_KEY&type=video&maxResults=${totalDays}`);
+    const data = await response.json();
+    return data.items;
+  } catch (e) {
+    console.error("YouTube error:", e);
+    return [];
+  }
+}
+
+async function fetchArticles(query) {
+  try {
+    const response = await fetch(`https://dev.to/api/articles?per_page=30&tag=${query}`);
+    const data = await response.json();
+    return data;
+  } catch (e) {
+    console.error("Article API error:", e);
+    return [];
+  }
+}
+
+async function fetchWikiFallback(title) {
+  try {
+    const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`);
+    const data = await res.json();
+    return data.extract;
+  } catch (e) {
+    console.warn("Wikipedia fallback error:", e);
+    return "No fallback available.";
+  }
+}
+
+// Main render function
+async function renderPlan() {
+  const videos = await fetchYouTube("AIzaSyC-pLqf0gQwL9lwxKtgZ4i_tbHBd2oX_fA");
+  const articles = await fetchArticles(articleQuery);
+  const wiki = await fetchWikiFallback(wikiFallback);
+
+  for (let day = 1; day <= totalDays; day++) {
+    const vid = videos[day - 1];
+    const art = articles[day - 1];
+    const quiz = quizData[day - 1];
+
+    const card = document.createElement("div");
+    card.className = "day-card";
+
+    card.innerHTML = `
+      <h3>Day ${day}</h3>
+      ${vid ? `
+        <p><strong>Video:</strong></p>
+        <iframe width="100%" height="215" src="https://www.youtube.com/embed/${vid.id.videoId}" frameborder="0" allowfullscreen></iframe>
+      ` : `<p><em>No video found.</em></p>`}
+
+      ${art ? `
+        <p><strong>Reading:</strong> <a href="${art.url}" target="_blank">${art.title}</a></p>
+      ` : `
+        <p><strong>Fallback Reading:</strong> ${wiki}</p>
+      `}
+
+      ${quiz ? `
+        <p><strong>Quiz:</strong> ${quiz.question}</p>
+        <ul>
+          ${quiz.options.map(option => `<li>${option}</li>`).join("")}
+        </ul>
+        <p><em>Correct answer: ${quiz.answer}</em></p>
+      ` : `<p><em>No quiz for today.</em></p>`}
+    `;
+
+    contentContainer.appendChild(card);
+  }
+}
+
+// Start rendering
+renderPlan();
+</script>
+
+<script src="API.js"></script>
+<script src="plan.js"></script>
+</body>
+</html>

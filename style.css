@@ -1,0 +1,87 @@
+/* === PAGE BACKGROUND COLOR - Applies to all pages except index.html === */
+body {
+  background-color: white; /* <-- Make page background white (especially for index.html) */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 2rem;
+  color: #222;
+}
+
+/* === CARD BOX BACKGROUND COLOR === */
+.card {
+  background-color: #c1cfde; /* <-- card background color */
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  user-select: none;
+}
+
+/* Table styling */
+table {
+  max-width: 700px;
+  margin: auto;
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #c1cfde; /* <-- table background color same as cards */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+/* ... other styles remain unchanged ... */
+
+/* === INDEX.HTML WELCOME CONTAINER - BRING BACK THE GRADIENT AND STYLE === */
+.welcome-container {
+  background: linear-gradient(135deg, #F6E05E, #27AE60); /* gradient, do NOT change */
+  color: white;
+  border-radius: 12px;
+  padding: 2rem 3rem;
+  max-width: 450px;
+  margin: 100px auto; /* center vertically with margin */
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* Big welcome text */
+.welcome-container h1 {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  font-weight: 900;
+}
+
+/* Start learning button on index.html */
+.btn-start {
+  background-color: #4A90E2; /* primary color */
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 1.5rem;
+}
+
+.btn-start:hover {
+  background-color: #357ABD;
+}
+.tip-box {
+  max-width: 700px;
+  margin: 1.5rem auto;
+  background-color: #FFFBEA; /* soft light yellow tip background */
+  border-left: 4px solid #27AE60;
+  padding: 1rem 1.5rem;
+  font-style: italic;
+  color: #333;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
