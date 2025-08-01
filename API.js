@@ -1,4 +1,4 @@
-// API.js — SkillSprint API helpers
+
 
 const __ENV__ = (typeof window !== "undefined" && window.ENV) ? window.ENV : {};
 const CFG = {
@@ -6,7 +6,7 @@ const CFG = {
   TIMEOUT_MS: 15000,
 };
 
-// ---------- Utils ----------
+
 async function fetchJSON(url, options) {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), CFG.TIMEOUT_MS);
@@ -26,7 +26,7 @@ function qs(params) {
   return p.toString();
 }
 
-// ---------- Wikipedia Fallback ----------
+
 const WIKI_SUMMARY = "https://en.wikipedia.org/api/rest_v1/page/summary/";
 const SKILL_TITLES = {
   // Tech
@@ -70,7 +70,7 @@ async function getSkillSummary(skillId) {
   return t ? getTermSummary(t) : null;
 }
 
-// ---------- YouTube ----------
+
 async function youtubeSearch({ q, maxResults = 12 }) {
   try {
     if (!CFG.YOUTUBE_API_KEY) return [];
@@ -96,7 +96,7 @@ async function youtubeSearch({ q, maxResults = 12 }) {
   }
 }
 
-// ---------- Quiz Questions ----------
+
 const QUIZ = {
   // Tech
   "web-dev": [
@@ -173,7 +173,7 @@ const QUIZ = {
   ]
 };
 
-// ---------- YouTube Video Search Terms ----------
+
 const VIDEO_QUERY = {
   // Tech
   "web-dev": "web development tutorial for beginners",
@@ -199,7 +199,7 @@ const VIDEO_QUERY = {
   "digital-products": "how to create and sell digital products"
 };
 
-// ---------- Combined fetch for extras ----------
+
 async function getExtras(skillId) {
   const query = VIDEO_QUERY[skillId] || "";
   const videos = query ? await youtubeSearch({ q: query, maxResults: 12 }) : [];
@@ -207,7 +207,7 @@ async function getExtras(skillId) {
   return { videos, quiz };
 }
 
-// ---------- Expose ----------
+
 if (typeof window !== "undefined") {
   window.SkillAPI = { getExtras, getSkillSummary, getTermSummary };
 }
