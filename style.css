@@ -1,15 +1,15 @@
-/* === PAGE BACKGROUND COLOR - Applies to all pages except index.html === */
+
 body {
-  background-color: white; /* <-- Make page background white (especially for index.html) */
+  background-color: white; 
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 2rem;
   color: #222;
 }
 
-/* === CARD BOX BACKGROUND COLOR === */
+
 .card {
-  background-color: #c1cfde; /* <-- card background color */
+  background-color: #c1cfde; 
   border-radius: 16px;
   padding: 1.5rem 2rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -23,42 +23,36 @@ body {
   user-select: none;
 }
 
-/* Table styling */
 table {
   max-width: 700px;
   margin: auto;
   width: 100%;
   border-collapse: collapse;
-  background-color: #c1cfde; /* <-- table background color same as cards */
+  background-color: #c1cfde; 
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 6px 20px rgba(0,0,0,0.1);
 }
 
-/* ... other styles remain unchanged ... */
-
-/* === INDEX.HTML WELCOME CONTAINER - BRING BACK THE GRADIENT AND STYLE === */
 .welcome-container {
-  background: linear-gradient(135deg, #F6E05E, #27AE60); /* gradient, do NOT change */
+  background: linear-gradient(135deg, #F6E05E, #27AE60); 
   color: white;
   border-radius: 12px;
   padding: 2rem 3rem;
   max-width: 450px;
-  margin: 100px auto; /* center vertically with margin */
+  margin: 100px auto; 
   text-align: center;
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-/* Big welcome text */
 .welcome-container h1 {
   font-size: 4rem;
   margin-bottom: 1rem;
   font-weight: 900;
 }
 
-/* Start learning button on index.html */
 .btn-start {
-  background-color: #4A90E2; /* primary color */
+  background-color: #4A90E2; 
   color: white;
   border: none;
   padding: 0.8rem 2rem;
@@ -77,7 +71,7 @@ table {
 .tip-box {
   max-width: 700px;
   margin: 1.5rem auto;
-  background-color: #FFFBEA; /* soft light yellow tip background */
+  background-color: #FFFBEA; 
   border-left: 4px solid #27AE60;
   padding: 1rem 1.5rem;
   font-style: italic;
