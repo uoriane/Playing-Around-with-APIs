@@ -1,4 +1,3 @@
-// plan.js — per-day rotation (Video + Quiz + Reading), prev/next, saved progress
 
 function normId(id) {
   const map = {
@@ -12,7 +11,6 @@ function normId(id) {
 function getParam(n){ return new URLSearchParams(location.search).get(n); }
 function cap(s){ return (s||"").replace(/-/g," ").replace(/\b\w/g,c=>c.toUpperCase()); }
 
-// day counts by skill
 const DAY_COUNT = {
   // Tech
   "web-dev": 21,
@@ -30,7 +28,6 @@ const DAY_COUNT = {
   "phone-photography": 14,
 };
 
-// per-skill reading subtopics (rotated daily)
 const READ_TOPICS = {
   // Tech
   "web-dev": [
@@ -96,7 +93,7 @@ const READ_TOPICS = {
   ],
 };
 
-let cache = {}; // per-skill cache for extras
+let cache = {}; 
 
 function getSavedDay(skill){
   const k = "day:"+skill;
@@ -123,17 +120,14 @@ async function loadDay(skill, day){
   fbEl.textContent = ""; fbEl.className = "";
   summaryEl.textContent = "Loading reading…";
 
-  // extras (videos & local quiz) — fetch once per skill
   if (!cache[skill]) cache[skill] = await window.SkillAPI.getExtras(skill);
   const { videos = [], quiz = [] } = cache[skill];
 
-  // Video of the day
   const v = videos.length ? videos[(day-1) % videos.length] : null;
   videoEl.innerHTML = v
     ? `<strong>Today’s Video:</strong> <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener">${v.title}</a>`
     : "(No video today)";
 
-  // Quiz of the day
   const q = quiz.length ? quiz[(day-1) % quiz.length] : null;
   if (!q) {
     qEl.textContent = "No quiz available.";
@@ -163,8 +157,7 @@ async function loadDay(skill, day){
       optsEl.appendChild(b);
     });
   }
-
-  // Reading of the day (sub-topic summary)
+  
   const topics = READ_TOPICS[skill] || [];
   const term = topics.length ? topics[(day-1) % topics.length] : null;
   let summary = null;
