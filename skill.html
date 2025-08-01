@@ -70,11 +70,11 @@
 <body>
   <h1>Choose a Skill</h1>
   <div class="card-container" id="skills-container">
-    <!-- JS fills this -->
+    
   </div>
 
   <script>
-  // ✅ Final Skills Data per Category
+  
   const allSkills = {
     tech: [
       { id: 'web-dev', name: 'Web Development' },
@@ -101,7 +101,6 @@
     ]
   };
 
-  // Get category from URL query string
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get('cat');
 
