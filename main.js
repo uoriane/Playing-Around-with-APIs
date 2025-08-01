@@ -1,4 +1,4 @@
-// main.js
+
 
 const data = {
   categories: [
@@ -41,7 +41,7 @@ function goToSkills(categoryId) {
   window.location.href = `skill.html?cat=${categoryId}`;
 }
 
-// Other code for loading skills and plan goes here...
+
 
 
 function generatePlan(skillName) {
