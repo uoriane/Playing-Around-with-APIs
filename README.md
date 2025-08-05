@@ -116,6 +116,7 @@ SkillSprint is a web application designed to help users learn new skills in a fe
   - [Google Fonts](https://fonts.google.com/)
   - [CSS Tricks](https://css-tricks.com/)
 
+Here is a Live demo of my APP "https://youtu.be/s94saKzW7QU". Due to the short amount of time I did not show my load balancer but, I attached the screenshot in my files above.
 ---
 
 Enjoy learning with SkillSprint!
